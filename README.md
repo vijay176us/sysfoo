@@ -1,1 +1,1 @@
-This is a Sample Maven App. triggerjob
+This is a Sample Maven App.
