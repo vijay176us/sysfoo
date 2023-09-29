@@ -23,6 +23,12 @@ pipeline {
       }
     }
 
+    stage('print') {
+      steps {
+        sh 'ls -lrth'
+      }
+    }
+
   }
   tools {
     maven 'Maven 3.6.3'
