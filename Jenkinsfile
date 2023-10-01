@@ -26,26 +26,30 @@ pipeline {
         sh 'mvn clean test'
       }
     }
-    
-    stage ('Parallel Build Stage')' {
-      when { branch 'master' }
+
+    stage ('parallel packaging and build stage')  {
+      when {
+                branch 'master'
+            }
       parallel {
-           stage('package') {
+            stage('package') {
               agent {
                 docker {
                   image 'maven:3.6.3-jdk-11-slim'
-            }
-            }
+                }
 
+              }
+              when { branch 'master' }
               steps {
                 echo 'package maven app'
                 sh 'mvn package -DskipTests'
                 archiveArtifacts 'target/*.war'
-              }      
+              }
             }
+
           stage('Docker BnP') {
               agent any
-              // when { branch 'master' }
+              when { branch 'master' }
               steps {
                 script {
                   docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
@@ -55,17 +59,18 @@ pipeline {
                     dockerImage.push("dev")
                   }
                 }
-              }
+
             }
           }
-      }
-        
-        
-        
-        
-   } 
 
-  
+
+      }
+
+    }
+
+
+
+  }
   tools {
     maven 'Maven 3.6.3'
   }
