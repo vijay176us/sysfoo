@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  sysfoo:
+    image: vijay176us/sysfoo:dev
+    ports:
+      - 8888:8080
