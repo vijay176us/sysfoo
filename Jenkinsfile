@@ -28,7 +28,6 @@ pipeline {
     }
 
     stage('parallel packaging and build stage') {
-      // when { branch 'master' }
       parallel {
         stage('package') {
           agent {
